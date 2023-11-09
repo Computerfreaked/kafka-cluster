@@ -1,0 +1,47 @@
+version:  "3.8"
+services:
+  broker1:
+    build: kafka-broker
+    image: kafka-broker
+
+    expose:
+      #broker
+      - "9092"
+      #controller
+      - "9093"
+
+    ports:
+      #broker
+      - "19094:9094"
+      #controller
+      - "19093:9093"
+
+    volumes:
+      - ./broker1/event_log:/tmp/kraft-combined-logs
+      - ./broker1/config:/home/kafka/config
+
+  broker2:
+    #build: broker-base
+    image: kafka-broker
+    expose:
+      - "9092"
+      - "9093"
+    ports:
+      - "29094:9094"
+      - "29093:9093"
+    volumes:
+      - ./broker2/event_log:/tmp/kraft-combined-logs
+      - ./broker2/config:/home/kafka/config
+
+  broker3:
+    #build: broker-base
+    image: kafka-broker
+    expose:
+      - "9092"
+      - "9093"
+    ports:
+      - "39094:9094"
+      - "39093:9093"
+    volumes:
+      - ./broker3/event_log:/tmp/kraft-combined-logs
+      - ./broker3/config:/home/kafka/config
